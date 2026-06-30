@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Interactive CV</title>
+    <style>
+        /* Base Styles & Variables */
+        :root {
+            --bg-color: #0f0f13;
+            --text-main: #ffffff;
+            --text-muted: #a0a0b0;
+            --accent: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+            --accent-glow: #4facfe;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Continuous Motion Animations */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 10px var(--accent-glow); }
+            50% { box-shadow: 0 0 30px var(--accent-glow); }
+            100% { box-shadow: 0 0 10px var(--accent-glow); }
+        }
+
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Scroll Animation Classes (Triggered by JS) */
+        .hidden {
+            opacity: 0;
+            transform: translateY(50px) scale(0.95);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .show {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* Layout & Sections */
+        section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+
+        /* Hero Section */
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            background: var(--accent);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient-shift 5s ease infinite;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+
+        .floating-shape {
+            width: 150px;
+            height: 150px;
+            background: var(--accent);
+            border-radius: 50%;
+            margin-bottom: 2rem;
+            animation: float 4s ease-in-out infinite, pulse-glow 3s infinite;
+        }
+
+        /* Interactive Buttons */
+        .btn {
+            padding: 1rem 2.5rem;
+            font-size: 1.2rem;
+            color: white;
+            background: transparent;
+            border: 2px solid var(--accent-glow);
+            border-radius: 30px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 0%; height: 100%;
+            background: var(--accent);
+            z-index: -1;
+            transition: all 0.4s ease;
+        }
+
+        .btn:hover::before {
+            width: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(79, 172, 254, 0.4);
+        }
+
+        /* Grid / Cards Section */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            width: 100%;
+            max-width: 1000px;
+            margin-top: 3rem;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.4s ease, background 0.4s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .card:hover {
+            transform: translateY(-15px) scale(1.05);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--accent-glow);
+        }
+    </style>
+</head>
+<body>
+
+<section class="hero hidden">
+    <div class="floating-shape"></div>
+    <h1>Raffoul Traboulsy</h1>
+    <p>Creative Developer & Designer building immersive digital experiences.</p>
+    <a href="#projects" class="btn">View My Work</a>
+</section>
+
+<section id="projects">
+    <h2 style="font-size: 2.5rem; margin-bottom: 1rem;" class="hidden">What I Do</h2>
+    <div class="grid">
+        <div class="card hidden" style="transition-delay: 100ms;">
+            <h3>Frontend Development</h3>
+            <p style="color: var(--text-muted); margin-top: 1rem;">Crafting beautiful, responsive, and highly interactive user interfaces using modern web technologies.</p>
+        </div>
+        <div class="card hidden" style="transition-delay: 200ms;">
+            <h3>UI/UX Design</h3>
+            <p style="color: var(--text-muted); margin-top: 1rem;">Designing user-centric flows and wireframes that keep visitors engaged and delighted.</p>
+        </div>
+        <div class="card hidden" style="transition-delay: 300ms;">
+            <h3>Motion Graphics</h3>
+            <p style="color: var(--text-muted); margin-top: 1rem;">Bringing static pages to life with advanced CSS animations and JavaScript libraries.</p>
+        </div>
+    </div>
+</section>
+
+<section id="contact" class="hidden">
+    <h2 style="font-size: 2.5rem; margin-bottom: 2rem;">Let's Create Together</h2>
+    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=raffoultraboulsy@aol.com" target="_blank" class="btn">Get In Touch</a>
+        </div>
+</section>
+
+<script>
+        // Setup the Intersection Observer to trigger animations on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                // If the element is visible in the viewport
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                } else {
+                    // Optional: remove 'show' if you want it to animate again when scrolling up
+                    // entry.target.classList.remove('show');
+                }
+            });
+        }, {
+            threshold: 0.1 // Triggers when 10% of the element is visible
+        });
+
+        // Grab all elements with the 'hidden' class and observe them
+        const hiddenElements = document.querySelectorAll('.hidden');
+        hiddenElements.forEach((el) => observer.observe(el));
+    </script>
+
+</body>
+</html>
